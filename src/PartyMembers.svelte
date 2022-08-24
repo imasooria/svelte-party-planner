@@ -15,26 +15,32 @@
         }
     }
 
-    const setPage = () => state.set(updateState($state, "page", "booze"))
+    const setPage = () => {
+        state.set(updateState($state, "page", "booze"));
+        state.set(updateState($state, "progress", "50"));
+    }
 
     const remove = (todo) => todoList = todoList.filter(t => t !== todo);
 
 </script>
-<h2> Add Party members</h2>
+
+
+<h2> Phase 1 - Add Party members</h2>
 <div class="grid">
 
-    <input class="r1"
-           bind:value={newItem}
-           type="text"
-           placeholder="Add new Party member.">
+    <div class="r1" style="display: flex; align-items: stretch">
+        <input style="flex-grow: 3;"
+               bind:value={newItem}
+               type="text"
+               placeholder="Add new Party member.">
 
-    <button class="r2"
-            on:click={addToList}>
-        Add
-    </button>
+        <button style="flex-grow: 1;" on:click={addToList}>
+            Add
+        </button>
+    </div>
 
     <div class="r3">
-        <h2>{Heading}</h2>
+        <h4 style="color: #8f8d89">{Heading}</h4>
         {#each todoList as todo}
             <div transition:fly="{{ y: -200, duration: 1000 }}" class=" f1">
                 <h3 > {todo.text} </h3>
@@ -43,15 +49,12 @@
                 </button>
             </div>
         {/each}
-        <button
-                style="display: flex; justify-content: end"
-                on:click={setPage}
-        >next</button>
+
+        <button style="display: flex; justify-content: end" on:click={setPage} >next</button>
     </div>
 
-
-
 </div>
+
 
 <style>
     .grid{

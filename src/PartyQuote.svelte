@@ -1,15 +1,23 @@
 <script>
-    import { state } from "./store.js"
-    import { updateState } from "./lib/utils.js"
+    import { state, progress } from "./store.js"
+    import { updateStateMultiple } from "./lib/utils.js"
 
     const setStateMotivated = () => {
-        let updatedState = updateState($state, "startParty", true)
-        let ns= updateState(updatedState, "page", "partyMembers")
-        state.set(ns)
+
+        let updatedState = updateStateMultiple(
+            $state,
+            {
+                "startParty": true,
+                "page": "partyMembers"
+            }
+        )
+        progress.set(10)
+
+        state.set(updatedState)
     }
 
     async function getRandomNumber() {
-        const res = await fetch(`http://localhost:3000/`);
+        const res = await fetch(`https://partyquotes.herokuapp.com/`);
         const quote = await res.json();
 
         if (res.ok) {

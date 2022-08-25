@@ -1,29 +1,28 @@
 <script>
     import { state, progress } from "./store.js"
-    import { updateStateMultiple } from "./lib/utils.js"
+    import { updateState } from "./lib/utils.js"
+    let planText = "Motivated ? Plan a Party"
 
     const setStateMotivated = () => {
-
-        let updatedState = updateStateMultiple(
-            $state,
-            {
-                "startParty": true,
-                "page": "partyMembers"
-            }
-        )
-        progress.set(10)
-
+        planText = "Planning in progress";
+        let updatedState = updateState($state, "page", "partyMembers");
         state.set(updatedState)
+        progress.set(10);
     }
 
     async function getRandomNumber() {
-        const res = await fetch(`https://partyquotes.herokuapp.com/`);
-        const quote = await res.json();
+        // const res = await fetch(`https://partyquotes.herokuapp.com/`);
+        // const quote = await res.json();
+        //
+        // if (res.ok) {
+        //     return quote;
+        // } else {
+        //     throw new Error("res error");
+        // }
 
-        if (res.ok) {
-            return quote;
-        } else {
-            throw new Error("res error");
+        return {
+            quote: "Life is what you celebrate. All of it. Even its end.",
+            by: "Joanne Harris"
         }
     }
 
@@ -50,8 +49,8 @@
         get more motivation
     </button>
 
-    <button on:click={setStateMotivated}>
-        motivated - plan a party
+    <button class="text-secondary" on:click|once={setStateMotivated}>
+        {planText}
     </button>
 </div>
 

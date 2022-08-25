@@ -9,5 +9,6 @@ export const progress = tweened(0, {
 
 export const state = writable({
     startParty: false,
-    page: "home"
+    page: "home",
+    partyMembers: []
 });

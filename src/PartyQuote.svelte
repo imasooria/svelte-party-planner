@@ -17,7 +17,7 @@
     }
 
     async function getRandomNumber() {
-        const res = await fetch(`http://localhost:3000/`);
+        const res = await fetch(`https://partyquotes.herokuapp.com/`);
         const quote = await res.json();
 
         if (res.ok) {

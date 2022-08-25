@@ -14,13 +14,13 @@
 </nav>
 
 <div class="grid">
-    <div class="paper container-xs r1">
+    <div class="paper container-xs r1 border ">
         <PartyQuote class="paper container-sm r1" />
     </div>
 
     <progress class="r2" value= {$progress} max="100"></progress>
 
-    <div class="container-md r3">
+    <div class="container-md r3 ">
         {#if $state.page === "partyMembers" && $state.startParty}
                 <PartyMembers />
         {:else if $state.page === "booze"}
@@ -57,4 +57,6 @@
         display: block;
         width: 100%;
     }
+
+
 </style>

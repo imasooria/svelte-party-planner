@@ -11,18 +11,13 @@
     }
 
     async function getRandomNumber() {
-        // const res = await fetch(`https://partyquotes.herokuapp.com/`);
-        // const quote = await res.json();
-        //
-        // if (res.ok) {
-        //     return quote;
-        // } else {
-        //     throw new Error("res error");
-        // }
+        const res = await fetch(`https://partyquotes.herokuapp.com/`);
+        const quote = await res.json();
 
-        return {
-            quote: "Life is what you celebrate. All of it. Even its end.",
-            by: "Joanne Harris"
+        if (res.ok) {
+            return quote;
+        } else {
+            throw new Error("res error");
         }
     }
 
@@ -34,7 +29,7 @@
 </script>
 
 {#await promise}
-    <p>...waiting</p>
+    <p>...looking for motivation around the world</p>
 {:then number}
     <div style="display: flex; align-content: center; justify-content: space-between">
         <i class="fa-solid fa-quote-left"></i>

@@ -1,11 +1,23 @@
 <script>
     import PartyQuote from "./PartyQuote.svelte";
     import PartyMembers from "./PartyMembers.svelte";
-    import PartyBooze from "./PartyBooze.svelte";
-
+    import PartyFood from "./partyFood.svelte";
+    import PartyGlimpse from "./PartyGlimpse.svelte";
+    import PartyHome from "./PartyHome.svelte";
     import { state, progress } from "./store.js";
 
     $: heading = $state.headings[$state.page];
+
+    const getPageComponent = (page) => {
+        let pgs = {
+            "PartyHome": PartyHome,
+            "partyMembers" : PartyMembers,
+            "partyFood" : PartyFood,
+            "partyGlimpse" :PartyGlimpse
+        }
+        return pgs[page];
+    }
+
 </script>
 
 <nav class="border fixed">
@@ -27,13 +39,7 @@
     <h2 class="r3"> {heading} </h2>
 
     <div class="container-md r4 ">
-        {#if $state.page === "partyMembers"}
-                <PartyMembers />
-        {:else if $state.page === "partyDrinks"}
-                <PartyBooze />
-        {:else}
-            <img class="center" src="/ppc.png" alt=" The office party ">
-        {/if}
+        <svelte:component this={getPageComponent($state.page)}/>
     </div>
 </div>
 
@@ -70,13 +76,5 @@
         display: block;
         width: 100%;
     }
-
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-    }
-
 
 </style>

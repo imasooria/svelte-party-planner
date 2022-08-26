@@ -1,7 +1,7 @@
 <script>
     import {getPartyMemberHeading, updateState} from "./lib/utils.js";
     import { fly } from 'svelte/transition';
-    import { state, progress } from "./store.js";
+    import { state } from "./store.js";
     let newMember = '';
     $: partyMembers = $state.partyMembers
     $: pHead = getPartyMemberHeading(partyMembers);
@@ -16,8 +16,7 @@
     }
 
     const setPage = () => {
-        state.set(updateState($state, "page", "partyDrinks"));
-        progress.set(50)
+        state.set(updateState($state, "page", "partyFood"));
     }
 
     const remove = (todo) => {
@@ -72,6 +71,7 @@
     .r2{
         grid-row: 2/3;
         grid-column: 2/3;
+        max-height: 200px;
     }
 
     .r3{

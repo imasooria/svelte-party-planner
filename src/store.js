@@ -9,12 +9,13 @@ export const progress = tweened(0, {
 
 export const state = writable({
     startParty: false,
-    page: "home",
+    page: "PartyHome",
     partyMembers: [],
+    boozeDescription: "nothing",
     headings: {
-        "home": "",
+        "PartyHome": "",
         "partyMembers": "Phase 1 - Add Party Members",
-        "partyDrinks": "Phase 3 - Add Food and Drinks",
-        "partyGlimpse": "Here is the glimpse of you party"
+        "partyFood": "Phase 2 - Add Food and Drinks",
+        "partyGlimpse": "Here is the glimpse of your party"
     }
 });

@@ -4,23 +4,18 @@
     import { state } from "./store.js";
     let newMember = '';
     $: partyMembers = $state.partyMembers
-    $: pHead = getPartyMemberHeading(partyMembers);
-    $: Heading = partyMembers.length > 0 ? pHead : "No Members Yet";
+    $: Heading = getPartyMemberHeading(partyMembers);
 
-    const addToList = () => {
-        if(newMember.length > 0){
-            partyMembers = [...partyMembers, newMember];
-            state.set(updateState($state, "partyMembers", partyMembers))
-            newMember = '';
-        }
+    const addMember = () => {
+        partyMembers.push(newMember)
+        state.set(updateState($state, "partyMembers", partyMembers))
+        newMember = '';
     }
 
-    const setPage = () => {
-        state.set(updateState($state, "page", "partyFood"));
-    }
+    const setPage = () => state.set(updateState($state, "page", "PartyFood"));
 
-    const remove = (todo) => {
-        partyMembers = partyMembers.filter(t => t !== todo);
+    const removeMember = (member) => {
+        partyMembers = partyMembers.filter(t => t !== member);
         state.set(updateState($state, "partyMembers", partyMembers))
     }
 
@@ -29,25 +24,32 @@
 <div class="paper border grid">
 
     <div class="r1 form">
-        <input style=""
-               bind:value={newMember}
+        <input bind:value={newMember}
                type="text"
                placeholder="Add new Party member.">
 
-        <button style="flex-grow: 1;" on:click={addToList}>
+        <button id="form-button" on:click={addMember} disabled={newMember.length <= 1}>
             Add
         </button>
     </div>
 
     <div class="r2">
-        <h4 style="color: #8f8d89">{Heading}</h4>
+        <h4>{Heading}</h4>
+
         {#each $state.partyMembers as member}
-            <div in:fly="{{ x: -200, duration: 500 }}" out:fly|local="{{ x: 200, duration: 500 }}" class=" f1">
+
+            <div in:fly="{{ x: -200, duration: 500 }}"
+                 out:fly|local="{{ x: 200, duration: 500 }}"
+                 class=" f1">
+
                 <h3> {member} </h3>
-                <button on:click="{() => remove(member)}">
+
+                <button on:click="{() => removeMember(member)}">
                     <i class="fa-solid fa-user-slash"></i>
                 </button>
+
             </div>
+
         {/each}
 
         <button class="text-secondary" on:click={setPage} >Next Phase</button>
@@ -74,20 +76,6 @@
         max-height: 200px;
     }
 
-    .r3{
-        display: flex;
-        flex-direction: column;
-        grid-row: 3/4;
-        grid-column: 2/3;
-    }
-
-    .r4{
-        display: flex;
-        flex-direction: column;
-        grid-row: 5/6;
-        grid-column: 2/3;
-    }
-
     .f1{
         display: flex;
         justify-content: space-between;
@@ -101,5 +89,15 @@
      input{
          flex-grow: 4;
      }
+
+    #form-button{
+        flex-grow: 1;
+     }
+
+     h4 {
+         color: #8f8d89
+     }
+
+
 
 </style>

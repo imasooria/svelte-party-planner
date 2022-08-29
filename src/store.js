@@ -11,11 +11,11 @@ export const state = writable({
     startParty: false,
     page: "PartyHome",
     partyMembers: [],
-    boozeDescription: "nothing",
+    boozeDescription: "we got nothing",
     headings: {
         "PartyHome": "",
-        "partyMembers": "Phase 1 - Add Party Members",
-        "partyFood": "Phase 2 - Add Food and Drinks",
-        "partyGlimpse": "Here is the glimpse of your party"
+        "PartyMembers": "Phase 1 - Add Party Members",
+        "PartyFood": "Phase 2 - Add Food and Drinks",
+        "PartyGlimpse": "Here is the glimpse of your party"
     }
 });

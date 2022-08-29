@@ -1,36 +1,28 @@
 <script>
     import PartyQuote from "./PartyQuote.svelte";
     import PartyMembers from "./PartyMembers.svelte";
-    import PartyFood from "./partyFood.svelte";
+    import PartyFood from "./PartyFood.svelte";
     import PartyGlimpse from "./PartyGlimpse.svelte";
     import PartyHome from "./PartyHome.svelte";
     import { state, progress } from "./store.js";
 
     $: heading = $state.headings[$state.page];
 
-    const getPageComponent = (page) => {
-        let pgs = {
-            "PartyHome": PartyHome,
-            "partyMembers" : PartyMembers,
-            "partyFood" : PartyFood,
-            "partyGlimpse" :PartyGlimpse
-        }
-        return pgs[page];
-    }
+    const getPageComponent = (page) => ({ PartyHome, PartyMembers, PartyFood, PartyGlimpse }) [page];
 
 </script>
 
 <nav class="border fixed">
     <div class="nav-brand">
         <h3>
-            <a href="" on:click={$state.page="home"}>Party Planner</a>
+            <a href="" on:click={$state.page="PartyHome"}>Party Planner</a>
             <i class="fa-solid fa-champagne-glasses"></i>
         </h3>
     </div>
 </nav>
 
 <div class="grid">
-    <div class="paper container-xs r1 border ">
+    <div class="paper  r1 border ">
         <PartyQuote />
     </div>
 
@@ -42,8 +34,6 @@
         <svelte:component this={getPageComponent($state.page)}/>
     </div>
 </div>
-
-
 
 <style>
 

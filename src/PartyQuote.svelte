@@ -5,43 +5,37 @@
 
     const setStateMotivated = () => {
         planText = "Planning in progress";
-        let updatedState = updateState($state, "page", "partyMembers");
+        let updatedState = updateState($state, "page", "PartyMembers");
         state.set(updatedState)
         progress.set(10);
     }
 
-    async function getRandomNumber() {
+    const getMotivationQuote = async () => {
         const res = await fetch(`https://partyquotes.herokuapp.com/`);
-        const quote = await res.json();
-
-        if (res.ok) {
-            return quote;
-        } else {
-            throw new Error("res error");
-        }
+        return await res.json();
     }
 
-    let promise = getRandomNumber();
+    let promise = getMotivationQuote();
 
-    function handleClick() {
-        promise = getRandomNumber();
-    }
+    const handleClick = () => promise = getMotivationQuote();
+
+
 </script>
 
 {#await promise}
     <p>...looking for motivation around the world</p>
-{:then number}
-    <div style="display: flex; align-content: center; justify-content: space-between">
+{:then motivation}
+    <div class="motivation">
         <i class="fa-solid fa-quote-left"></i>
-        <h3> {number["quote"]}</h3>  <h4>{number["by"]}</h4>
+        <h3> {motivation["quote"]}</h3>  <h4>{motivation["by"]}</h4>
     </div>
 {:catch error}
     <p style="color: red">{error.message}</p>
 {/await}
 
-<div class = "f1">
+<div class="flex-buttons">
     <button on:click={handleClick}>
-        get more motivation
+        Get More Motivation
     </button>
 
     <button class="text-secondary" on:click|once={setStateMotivated}>
@@ -50,8 +44,17 @@
 </div>
 
 <style>
-    .f1{
+
+    .motivation{
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+    }
+
+    .flex-buttons{
         display: flex;
         justify-content: space-evenly;
     }
+
+
 </style>
